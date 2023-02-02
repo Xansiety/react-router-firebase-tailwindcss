@@ -1,4 +1,4 @@
-export const formValidate = () => {
+export const formValidate = (getValues, fieldKey) => {
   return {
     required: {
       value: true,
@@ -14,16 +14,17 @@ export const formValidate = () => {
       message: "Mínimo 6 carácteres",
     },
     validateTrim: {
-      trim: (v) => {
+      removeBlankSpaces: (v) => {
         if (!v.trim()) {
           return "No se permiten espacios en blanco";
         }
         return true;
       },
     },
-    validateEquals(value) {
+    validateEquals(getValues, fieldKey) {
       return {
-        equals: (v) => v === value || "No coinciden las contraseñas",
+        matchesPreviousPassword: (v) =>
+          v === getValues(fieldKey) || "Las contraseñas no coinciden",
       };
     },
   };

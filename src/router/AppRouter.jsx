@@ -1,6 +1,6 @@
 import { Navigate, Route, Routes } from "react-router";
 import { AuthRoutes } from "../auth";
-import { RequiereAuth } from "../components/RequiereAuth";
+import { RequiereAuth } from "../components/auth/RequiereAuth";
 import { useUserContext } from "../hooks/useUserContext";
 import { UrlRoutes } from "../urls";
 

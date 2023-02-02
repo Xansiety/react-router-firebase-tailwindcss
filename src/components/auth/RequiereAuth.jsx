@@ -1,5 +1,5 @@
 import { Navigate } from "react-router";
-import { useUserContext } from "../hooks/useUserContext";
+import { useUserContext } from "../../hooks/useUserContext";
 
 export const RequiereAuth = ({ children }) => {
   const { user } = useUserContext();

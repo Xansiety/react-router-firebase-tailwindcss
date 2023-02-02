@@ -1,5 +1,5 @@
-export const errorsFirebase = (error) => {
-  switch (error.code) {
+export const errorsFirebase = (errorCode) => {
+  switch (errorCode) {
     case "auth/email-already-in-use":
       return { code: "email", message: "Usuario ya registrado" };
 
@@ -22,6 +22,6 @@ export const errorsFirebase = (error) => {
       return { code: "password", message: "Contraseña incorrecta" };
 
     default:
-      return { code: "email", message: "Error, intentelo más tarde" };
+      return { code: "firebase", message: "Error, inténtelo más tarde" };
   }
 };
