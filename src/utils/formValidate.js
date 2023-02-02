@@ -1,4 +1,4 @@
-export const formValidate = (getValues, fieldKey) => {
+export const FormValidate = (getValues, fieldKey) => {
   return {
     required: {
       value: true,
