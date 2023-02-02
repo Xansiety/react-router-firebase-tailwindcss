@@ -16,10 +16,10 @@ export const ErrorsFirebase = (errorCode) => {
       };
 
     case "auth/user-not-found":
-      return { code: "email", message: "Usuario no registrado" };
+      return { code: "firebase", message: "Usuario no encontrado" };
 
     case "auth/wrong-password":
-      return { code: "password", message: "Contraseña incorrecta" };
+      return { code: "firebase", message: "Usuario no encontrado" };
 
     default:
       return { code: "firebase", message: "Error, inténtelo más tarde" };
