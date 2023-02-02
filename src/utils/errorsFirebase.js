@@ -1,13 +1,22 @@
+export const firebaseErrors = [
+  "auth/email-already-in-use",
+  "auth/invalid-email",
+  "auth/invalid-email-verified",
+  "auth/invalid-password",
+  "auth/user-not-found",
+  "auth/wrong-password",
+];
+
 export const ErrorsFirebase = (errorCode) => {
   switch (errorCode) {
     case "auth/email-already-in-use":
-      return { code: "email", message: "Usuario ya registrado" };
+      return { code: "firebase", message: "Usuario ya registrado" };
 
     case "auth/invalid-email":
-      return { code: "email", message: "Formato email no válido" };
+      return { code: "firebase", message: "Formato email no válido" };
 
     case "auth/invalid-email-verified":
-      return { code: "email", message: "El email no está verificado" };
+      return { code: "firebase", message: "El email no está verificado" };
 
     case "auth/invalid-password":
       return {
