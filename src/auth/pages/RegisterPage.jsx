@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { RootLayout } from "../../layout/RootLayout";
 import { useForm } from "react-hook-form";
 import { useUserContext } from "../../hooks/useUserContext";
@@ -12,22 +11,45 @@ export const RegisterPage = () => {
     handleSubmit,
     formState: { errors },
     getValues,
-  } = useForm();
+    setError,
+  } = useForm({
+    defaultValues: {
+      displayName: "test",
+      email: "test@test.com",
+      password: "123456",
+      password2: "123456",
+    },
+  });
 
-  // const handleSubmit = async (e) => {
-  //   e.preventDefault();
-  //   const response = await registerWithEmailPassword({
-  //     email,
-  //     password,
-  //     displayName,
-  //   });
-
-  //   if (response.ok) {
-  //     return navigate("/");
-  //   }
-  // };
-  
-  const onSubmit = (data) => console.log(data);
+  const onSubmit = async ({ email, password, displayName }) => {
+    try {
+      await registerWithEmailPassword({ email, password, displayName });
+      console.log("Usuario registrado");
+      navigate("/");
+    } catch (error) {
+      console.log(error.code);
+      switch (error.code) {
+        case "auth/email-already-in-use":
+          setError("email", {
+            message: "Usuario ya registrado",
+          });
+          break;
+        case "auth/invalid-email":
+          setError("email", {
+            message: "Formato email no válido",
+          });
+          break;
+        case "auth/weak-password":
+          setError("password", {
+            message: "La contraseña debe tener al menos 6 caracteres",
+          });
+          break;
+        default:
+          console.log("Ocurrio un error en el server");
+          setError("Ocurrio un error en el server");
+      }
+    }
+  };
 
   return (
     <RootLayout>
@@ -70,9 +92,18 @@ export const RegisterPage = () => {
               value: true,
               message: "Este campo es requerido",
             },
+            setValueAs: (v) => v.trim(),
             minLength: {
               value: 6,
               message: "La contraseña debe tener al menos 6 caracteres",
+            },
+            validate: {
+              removeBlankSpaces: (v) => {
+                if (!v.trim()) {
+                  return "No se permiten espacios en blanco";
+                }
+                return true;
+              },
             },
           })}
         />
@@ -86,6 +117,7 @@ export const RegisterPage = () => {
               value: true,
               message: "Este campo es requerido",
             },
+            setValueAs: (v) => v.trim(),
             minLength: {
               value: 6,
               message: "La contraseña debe tener al menos 6 caracteres",

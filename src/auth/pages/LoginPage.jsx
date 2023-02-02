@@ -12,23 +12,16 @@ export const LoginPage = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const response = await loginWithEmailAndPassword({
+    await loginWithEmailAndPassword({
       email,
       password,
     });
-
-    //console.log(response);
-    if (response.ok) {
-      return navigate("/");
-    }
+    return navigate("/");
   };
 
   const handleGoogleLogin = async () => {
-    const response = await signInWithGoogle();
-    //console.log(response);
-    if (response.ok) {
-      return navigate("/");
-    }
+    await signInWithGoogle();
+    return navigate("/");
   };
 
   return (
