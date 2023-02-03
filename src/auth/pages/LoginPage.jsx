@@ -5,6 +5,7 @@ import { useUserContext } from "../../hooks/useUserContext";
 import { RootLayout } from "../../layout/RootLayout";
 import { firebaseErrors, ErrorsFirebase, FormValidate } from "../../utils";
 import { useState } from "react";
+import { GoogleIcon } from "../../components/icons/GoogleIcon";
 
 export const LoginPage = () => {
   const navigate = useNavigate(); 
@@ -47,10 +48,13 @@ export const LoginPage = () => {
           <FormInputText type="password" placeholder="Contraseña" {...register("password", { required, minLength, validate: validateTrim })} >
             {errors.password && <span>{errors.password.message}</span>}
           </FormInputText>  
-        <button type="submit">Login</button> |
-        <button type="button" onClick={handleGoogleLogin}>
-          Login con Google
+        <button type="submit">Login</button> | 
+
+        <button onClick={handleGoogleLogin} type="button" className="text-white bg-[#4285F4] hover:bg-[#4285F4]/90 focus:ring-4 focus:outline-none focus:ring-[#4285F4]/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-[#4285F4]/55 mr-2 mb-2">
+          <GoogleIcon />
+          Sign in with Google
         </button>
+
       </form>
     </RootLayout>
   );
