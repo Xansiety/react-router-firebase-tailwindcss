@@ -10,27 +10,27 @@ export const firebaseErrors = [
 export const ErrorsFirebase = (errorCode) => {
   switch (errorCode) {
     case "auth/email-already-in-use":
-      return { code: "firebase", message: "Usuario ya registrado" };
+      return { code: "firebase", message: "The access data does not match our records." };
 
     case "auth/invalid-email":
-      return { code: "firebase", message: "Formato email no válido" };
+      return { code: "firebase", message: "Invalid email format." };
 
     case "auth/invalid-email-verified":
-      return { code: "firebase", message: "El email no está verificado" };
+      return { code: "firebase", message: "Email is not verified." };
 
     case "auth/invalid-password":
       return {
         code: "password",
-        message: "Contraseña mínimo 6 carácteres",
+        message: "Password too weak, please enter another one.",
       };
 
     case "auth/user-not-found":
-      return { code: "firebase", message: "Usuario no encontrado" };
+      return { code: "firebase", message: "Incorrect Email/Password, try again." };
 
     case "auth/wrong-password":
-      return { code: "firebase", message: "Usuario no encontrado" };
+      return { code: "firebase", message: "Incorrect Email/Password, try again." };
 
     default:
-      return { code: "firebase", message: "Error, inténtelo más tarde" };
+      return { code: "firebase", message: "Server error, try again." };
   }
 };

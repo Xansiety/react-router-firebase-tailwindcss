@@ -2,21 +2,21 @@ export const FormValidate = (getValues, fieldKey) => {
   return {
     required: {
       value: true,
-      message: "Campo obligatorio",
+      message: "Required field",
     },
     patternEmail: {
       value:
         /[a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,15})/,
-      message: "Formato de email incorrecto",
+      message: "Invalid format email",
     },
     minLength: {
       value: 6,
-      message: "Mínimo 6 carácteres",
+      message: "Min length 6 characters",
     },
     validateTrim: {
       removeBlankSpaces: (v) => {
         if (!v.trim()) {
-          return "No se permiten espacios en blanco";
+          return "Please, remove blank spaces";
         }
         return true;
       },
@@ -24,7 +24,7 @@ export const FormValidate = (getValues, fieldKey) => {
     validateEquals(getValues, fieldKey) {
       return {
         matchesPreviousPassword: (v) =>
-          v === getValues(fieldKey) || "Las contraseñas no coinciden",
+          v === getValues(fieldKey) || "Passwords should match!",
       };
     },
   };

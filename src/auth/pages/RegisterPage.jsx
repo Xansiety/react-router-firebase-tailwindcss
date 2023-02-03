@@ -1,15 +1,15 @@
-import { RootLayout } from "../../layout/RootLayout";
+import { AuthLayout } from "../../layout/AuthLayout";
 import { useForm } from "react-hook-form";
 import { useUserContext } from "../../hooks/useUserContext";
 import { useNavigate } from "react-router";
 import { firebaseErrors, ErrorsFirebase, FormValidate } from "../../utils";
-import { FormAlert, FormInputText } from "../../components";
+import { Button, FormAlert, FormInputText,Text3XLTitle, FormContainer } from "../../components";
 import { useState } from "react";
 
 export const RegisterPage = () => {
   const navigate = useNavigate();
   const { registerWithEmailPassword } = useUserContext();
-  const { register, handleSubmit, formState: { errors }, getValues, setError } = useForm();
+  const { register, handleSubmit, formState: { errors }, getValues } = useForm();
   const { required, patternEmail, minLength, validateTrim, validateEquals } = FormValidate();
   const [ apiErrorMessages, setApiErrorMessages ] = useState(null);
 
@@ -17,8 +17,7 @@ export const RegisterPage = () => {
   const onSubmit = async ({ email, password, displayName }) => {
     setApiErrorMessages(null);
     try {
-      await registerWithEmailPassword({ email, password, displayName });
-      console.log("Usuario registrado");
+      await registerWithEmailPassword({ email, password, displayName }); 
       navigate("/");
     } catch (error) {
       if (firebaseErrors.includes(error.code)) {
@@ -29,14 +28,17 @@ export const RegisterPage = () => {
   };
 
   return (
-    <RootLayout>
-      <h1>Registrarme</h1>
-      {apiErrorMessages && <FormAlert message={apiErrorMessages} />}
-      <form onSubmit={handleSubmit(onSubmit)}>
+    <AuthLayout> 
+      <FormContainer>
+        <Text3XLTitle text="Join me!" />
+        {apiErrorMessages && <FormAlert message={apiErrorMessages} />}
+      <form className="space-y-6" onSubmit={handleSubmit(onSubmit)}>
         <FormInputText
           type="text"
-          placeholder="Nombre de usuario"
+          placeholder="xansiety"
+          labelName="Enter your nickname"
           {...register("displayName", { required })}
+          error={errors.displayName}
         >
           {errors.displayName && (
             <FormAlert message={errors.displayName.message} />
@@ -46,37 +48,41 @@ export const RegisterPage = () => {
         <FormInputText
           type="email"
           placeholder="Email"
+          labelName="Enter your email"
           {...register("email", { required, pattern: patternEmail })}
+          error={errors.email}
         >
           {errors.email && <FormAlert message={errors.email.message} />}
         </FormInputText>
 
         <FormInputText
-          type="password"
-          placeholder="Contraseña"
+          type="password" 
+          labelName="Enter your password"
           {...register("password", {
             required,
             minLength,
             validate: validateTrim,
           })}
+          error={errors.password}
         >
-          {errors.password && <span>{errors.password.message}</span>}
+          {errors.password && <FormAlert message={errors.password.message} />}
         </FormInputText>
 
         <FormInputText
           type="password"
-          placeholder="Confirmar contraseña"
+          labelName="Repeat your password" 
           {...register("password2", {
             required,
             minLength,
             validate: validateEquals(getValues, "password"),
           })}
+          error={errors.password2}
         >
           {errors.password2 && <FormAlert message={errors.password2.message} />}
-        </FormInputText>
-
-        <button type="submit">Registrarme</button>
+        </FormInputText> 
+        <Button type="submit" text="Register" />
       </form>
-    </RootLayout>
+      </FormContainer>  
+    </AuthLayout>
   );
 };

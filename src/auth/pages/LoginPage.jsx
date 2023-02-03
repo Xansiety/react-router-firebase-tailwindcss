@@ -1,8 +1,8 @@
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router";
-import { FormAlert, FormInputText } from "../../components";
+import { Button, FormAlert, FormContainer, FormInputText, Text3XLTitle } from "../../components";
 import { useUserContext } from "../../hooks/useUserContext";
-import { RootLayout } from "../../layout/RootLayout";
+import { AuthLayout } from "../../layout/AuthLayout";
 import { firebaseErrors, ErrorsFirebase, FormValidate } from "../../utils";
 import { useState } from "react";
 import { GoogleIcon } from "../../components/icons/GoogleIcon";
@@ -17,8 +17,7 @@ export const LoginPage = () => {
   const onSubmit = async ({ email, password, displayName }) => {
     setApiErrorMessages(null);
     try {
-      await loginWithEmailAndPassword({ email, password, displayName });
-      console.log("Usuario registrado");
+      await loginWithEmailAndPassword({ email, password, displayName }); 
       navigate("/");
     } catch (error) {
       if (firebaseErrors.includes(error.code)) {
@@ -29,7 +28,7 @@ export const LoginPage = () => {
   };
  
   const handleGoogleLogin = async () => {
-    try {
+    try { 
       await signInWithGoogle();
       return navigate("/");
     } catch (error) {
@@ -38,24 +37,29 @@ export const LoginPage = () => {
   };
 
   return (
-    <RootLayout>
-      <h1>Login</h1>
-      {apiErrorMessages && <FormAlert message={apiErrorMessages} />}
-      <form onSubmit={handleSubmit(onSubmit)}>
-          <FormInputText type="email" placeholder="Email" {...register("email", { required, pattern: patternEmail })} >
-            {errors.email && <FormAlert message={errors.email.message} />} 
-          </FormInputText>         
-          <FormInputText type="password" placeholder="Contraseña" {...register("password", { required, minLength, validate: validateTrim })} >
-            {errors.password && <span>{errors.password.message}</span>}
-          </FormInputText>  
-        <button type="submit">Login</button> | 
+    <AuthLayout>
+      <FormContainer>
+        <Text3XLTitle text="Sign In" />
+        {apiErrorMessages && <FormAlert message={apiErrorMessages} />}
+        <form onSubmit={handleSubmit(onSubmit)}>
+            <FormInputText type="email" placeholder="example@xyz.com" labelName="Your email" error={errors.email} {...register("email", { required, pattern: patternEmail })} >
+              {errors.email && <FormAlert message={errors.email.message} />} 
+            </FormInputText>         
+            <FormInputText type="password" labelName="Enter your password" error={errors.password} {...register("password", { required, minLength, validate: validateTrim })} >
+              {errors.password && <FormAlert message={errors.password.message} /> }
+            </FormInputText>  
 
-        <button onClick={handleGoogleLogin} type="button" className="text-white bg-[#4285F4] hover:bg-[#4285F4]/90 focus:ring-4 focus:outline-none focus:ring-[#4285F4]/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-[#4285F4]/55 mr-2 mb-2">
-          <GoogleIcon />
-          Sign in with Google
-        </button>
-
+            <Button type="submit" text="Login" />   
+            <button type="button" onClick={handleGoogleLogin}
+              className="relative inline-flex items-center justify-center p-0.5 mb-2 mr-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-pink-500 to-orange-400 group-hover:from-pink-500 group-hover:to-orange-400 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-pink-200 dark:focus:ring-pink-800">
+              <span className="relative px-5 py-2.5 inline-flex transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
+              <GoogleIcon />  Sign in with Google
+              </span>
+          </button> 
       </form>
-    </RootLayout>
+      </FormContainer>
+      
+      
+    </AuthLayout>
   );
 };

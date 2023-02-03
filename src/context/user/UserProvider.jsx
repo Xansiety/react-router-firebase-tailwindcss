@@ -43,7 +43,7 @@ export const UserProvider = ({ children }) => {
 
   const loginWithEmailAndPassword = ({ email, password }) => signInWithEmailAndPassword(FirebaseAuth, email, password);
 
-  const signInWithGoogle = () => signInWithPopup(FirebaseAuth, googleProvider);
+  const signInWithGoogle = () => (signInWithPopup(FirebaseAuth, googleProvider));
 
   const logOutFirebase = () =>  FirebaseAuth.signOut();
 
