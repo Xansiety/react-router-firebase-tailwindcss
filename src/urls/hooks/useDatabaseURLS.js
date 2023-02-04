@@ -1,12 +1,4 @@
-import {
-  collection,
-  deleteDoc,
-  doc,
-  getDocs,
-  query,
-  setDoc,
-  where,
-} from "firebase/firestore/lite";
+import {  collection,  deleteDoc,  doc,  getDocs,  query,  setDoc,  updateDoc,  where } from "firebase/firestore/lite";
 import { nanoid } from "nanoid";
 import { useState } from "react";
 import { FirebaseAuth, FirebaseDB } from "../../config/firebase";
@@ -77,12 +69,35 @@ export const useDatabaseURLS = () => {
     }
   };
 
+  const updateUrl = async (nanoid, newOrigin) => {
+    console.log("updateUrl fn called");
+    setLoading((prev) => ({ ...prev, [nanoid]: true }));
+    try {
+      const docRef = doc(FirebaseDB, "urls", nanoid);
+      await updateDoc(docRef, { origin: newOrigin });
+      // Update the state with the new data
+      const newCollection = data.map((item) => {
+        if (item.nanoid === nanoid) {
+          return { ...item, origin: newOrigin };
+        }
+        return item;
+      });
+      setData(newCollection);
+    } catch (error) {
+      console.log(error);
+      setError(error.message);
+    } finally {
+      setLoading((prev) => ({ ...prev, [nanoid]: false }));
+    }
+  };
+
   return {
     data,
     error,
     loading,
-    loadUrls,
     createUrl,
+    loadUrls,
+    updateUrl,
     deleteUrl,
   };
 };
