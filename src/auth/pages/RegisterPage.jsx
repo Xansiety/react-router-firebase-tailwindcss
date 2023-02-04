@@ -1,16 +1,17 @@
 import { AuthLayout } from "../../layout/AuthLayout";
 import { useForm } from "react-hook-form";
 import { useUserContext } from "../../hooks/useUserContext";
-import { useNavigate } from "react-router";
-import { FormValidate, errorsMessages, errorsObject } from "../../utils";
+import { useNavigate } from "react-router"; 
 import { Button, FormAlert, FormInputText,Text3XLTitle, FormContainer } from "../../components";
 import { useState } from "react";
+import { errorsMessages, errorsObject } from "../../utils/ErrorsMessages";
+import { ValidateInputOpt } from "../../utils/ValidateInputOpt";
 
 export const RegisterPage = () => {
   const navigate = useNavigate();
   const { registerWithEmailPassword } = useUserContext();
   const { register, handleSubmit, formState: { errors }, getValues } = useForm();
-  const { required, patternEmail, minLength, validateTrim, validateEquals } = FormValidate();
+  const { required, patternEmail, minLength, validateTrim, validateEquals } = ValidateInputOpt();
   const [ apiErrorMessages, setApiErrorMessages ] = useState(null);
 
 

@@ -2,16 +2,17 @@ import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router";
 import { Button, FormAlert, FormContainer, FormInputText, Text3XLTitle } from "../../components";
 import { useUserContext } from "../../hooks/useUserContext";
-import { AuthLayout } from "../../layout/AuthLayout";
-import { FormValidate, errorsMessages, errorsObject } from "../../utils";
+import { AuthLayout } from "../../layout/AuthLayout"; 
 import { useState } from "react";
 import { GoogleIcon } from "../../components/icons/GoogleIcon";
+import { errorsMessages, errorsObject } from "../../utils/ErrorsMessages";
+import { ValidateInputOpt } from "../../utils/ValidateInputOpt";
 
 export const LoginPage = () => {
   const navigate = useNavigate(); 
   const { loginWithEmailAndPassword, signInWithGoogle } = useUserContext();
-  const { register, handleSubmit, formState: { errors }, setError } = useForm();
-  const { required, patternEmail, minLength, validateTrim } = FormValidate();
+  const { register, handleSubmit, formState: { errors } } = useForm();
+  const { required, patternEmail, minLength, validateTrim } = ValidateInputOpt();
   const [ apiErrorMessages, setApiErrorMessages ] = useState(null);
 
   const onSubmit = async ({ email, password, displayName }) => {

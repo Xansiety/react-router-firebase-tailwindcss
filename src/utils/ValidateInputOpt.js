@@ -1,4 +1,4 @@
-export const FormValidate = (getValues, fieldKey) => {
+export const ValidateInputOpt = (getValues, fieldKey) => {
   return {
     required: {
       value: true,
