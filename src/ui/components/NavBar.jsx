@@ -14,7 +14,7 @@ export const NavBar = () => {
   };
 
   return (
-    <>  
+    <>
       <nav className="px-2 bg-white border-gray-200 dark:bg-gray-900 dark:border-gray-700">
         <div className="container flex flex-wrap items-center justify-between mx-auto">
           <a href="#" className="flex items-center">
@@ -80,7 +80,7 @@ export const NavBar = () => {
                       onClick={handleLogOut}
                       className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2 text-center mr-3 md:mr-0 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                     >
-                     Salir
+                      Salir
                     </button>
                   </li>
                 </>
@@ -89,21 +89,24 @@ export const NavBar = () => {
                   <li>
                     <NavLink
                       to="/auth/login"
-                      className="block py-2 pl-3 pr-4 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 md:dark:text-white dark:bg-blue-600 md:dark:bg-transparent"
-                      aria-current="page"
+                      className={({ isActive }) =>
+                      `text-gray-800 dark:text-white hover:bg-gray-50 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-4 py-2 md:px-5 md:py-2.5 mr-1 md:mr-2 dark:hover:bg-gray-700 focus:outline-none dark:focus:ring-gray-800"
+                      nav-item nav-link ${isActive ? "active" : ""}`
+                      }
                     >
                       Login
                     </NavLink>
                   </li>
-                  <li>
 
-                  <button 
-                      type="button"
-                      onClick={goToRegister}
-                      className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2 text-center mr-3 md:mr-0 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                  <li>
+                    <NavLink
+                      to="/auth/register"
+                      className={({ isActive }) =>
+                        `text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2 text-center mr-3 md:mr-0 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 nav-item nav-link ${isActive ? "active" : ""}`
+                      } 
                     >
-                     Register
-                    </button> 
+                      Sign up
+                    </NavLink>
                   </li>
                 </>
               )}
