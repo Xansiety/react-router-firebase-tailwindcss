@@ -13,8 +13,7 @@ import { UserContext } from "./UserContext";
 export const UserProvider = ({ children }) => {
   const googleProvider = new GoogleAuthProvider(); //google provider para poder ingresar
 
-  const [user, setUser] = useState(false);
-
+  const [user, setUser] = useState(false); 
   //! Revisar el estado de la autentificacion
   useEffect(() => {
     //! Para poder estar pendiente de cuando el usuario cambia en su estado
