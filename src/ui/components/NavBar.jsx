@@ -2,8 +2,7 @@ import { NavLink } from "react-router-dom";
 import { useUserContext } from "../../hooks/useUserContext";
 
 export const NavBar = () => {
-  const { user, logOutFirebase } = useUserContext();
-
+  const { user, logOutFirebase } = useUserContext(); 
   const handleLogOut = () => {
     logOutFirebase();
   };
