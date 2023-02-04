@@ -1,4 +1,4 @@
-export const Button = ({ children, text, type }) => {
+export const ButtonGradient = ({ children, text, type }) => {
   return (
     <button
       type={type}

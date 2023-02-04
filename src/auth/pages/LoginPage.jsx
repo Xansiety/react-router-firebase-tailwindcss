@@ -1,13 +1,13 @@
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router";
-import {  Button,  FormAlert,  FormContainer,  FormInputText,  Text3XLTitle } from "../../components";
+import { FormAlert,  FormContainer,  FormInputText,  Text3XLTitle } from "../../components";
 import { useUserContext } from "../../hooks/useUserContext";
 import { AuthLayout } from "../../layout/AuthLayout";
 import { useState } from "react";
 import { GoogleIcon } from "../../components/icons/GoogleIcon";
 import { errorsMessages, errorsObject } from "../../utils/ErrorsMessages";
-import { ValidateInputOpt } from "../../utils/ValidateInputOpt";
-import { BtnLoading } from "../../ui/Buttons/BtnLoading";
+import { ValidateInputOpt } from "../../utils/ValidateInputOpt"; 
+import {  ButtonGradient, ButtonLoading } from "../../ui/Buttons";
 
 export const LoginPage = () => {
   const navigate = useNavigate();
@@ -63,7 +63,7 @@ export const LoginPage = () => {
 
           {!isLoading ? (
             <>
-              <Button disable={isLoading} type="submit" text="Login" />{" "}
+              <ButtonGradient disable={isLoading} type="submit" text="Login" />
               <button type="button" onClick={handleGoogleLogin} disabled={isLoading}
                 className="relative inline-flex items-center justify-center p-0.5 mb-2 mr-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-pink-500 to-orange-400 group-hover:from-pink-500 group-hover:to-orange-400 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-pink-200 dark:focus:ring-pink-800"
               >
@@ -73,7 +73,7 @@ export const LoginPage = () => {
               </button>
             </>
           ) : (
-            <BtnLoading />
+            <ButtonLoading />
           )}
         </form>
       </FormContainer>

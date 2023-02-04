@@ -1,4 +1,4 @@
-export const BtnLoading = () => {
+export const ButtonLoading = () => {
   return (
     <button
       disabled

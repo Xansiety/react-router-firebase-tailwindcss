@@ -1,8 +1,11 @@
+import { Text3XLTitle } from "../../components"
 import { RootLayout } from "../../layout/RootLayout"
 
  
 export const PerfilPage = () => {
   return (
-    <RootLayout>PerfilPage</RootLayout>
+    <RootLayout>
+      <Text3XLTitle text="My Profile" />
+    </RootLayout>
   )
 }

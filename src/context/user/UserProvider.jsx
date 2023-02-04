@@ -19,7 +19,7 @@ export const UserProvider = ({ children }) => {
     //! Para poder estar pendiente de cuando el usuario cambia en su estado
     //! la funcion regresa un observable
     const unsuscribe = onAuthStateChanged(FirebaseAuth, async (user) => {
-      console.log(user)
+      // console.log(user)
       if (user) {
         const { uid, email, displayName, photoURL } = user;
         setUser({

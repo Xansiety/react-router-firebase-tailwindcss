@@ -2,11 +2,11 @@ import { AuthLayout } from "../../layout/AuthLayout";
 import { useForm } from "react-hook-form";
 import { useUserContext } from "../../hooks/useUserContext";
 import { useNavigate } from "react-router"; 
-import { Button, FormAlert, FormInputText,Text3XLTitle, FormContainer } from "../../components";
+import { FormAlert, FormInputText,Text3XLTitle, FormContainer } from "../../components";
 import { useState } from "react";
 import { errorsMessages, errorsObject } from "../../utils/ErrorsMessages";
-import { ValidateInputOpt } from "../../utils/ValidateInputOpt";
-import { BtnLoading } from "../../ui/Buttons/BtnLoading";
+import { ValidateInputOpt } from "../../utils/ValidateInputOpt"; 
+import { ButtonGradient } from "../../ui/Buttons";
 
 export const RegisterPage = () => {
   const navigate = useNavigate();
@@ -61,7 +61,7 @@ export const RegisterPage = () => {
             {...register("password2", { required, minLength, validate: validateEquals(getValues, "password") })} error={errors.password2} >
             {errors.password2 && <FormAlert message={errors.password2.message} />}
           </FormInputText> 
-          { !isLoading  ? <Button type="submit" text="Register" /> :  <BtnLoading /> }       
+          { !isLoading  ? <ButtonGradient type="submit" text="Register" /> :  <ButtonGradient /> }       
         </form>
       </FormContainer>  
     </AuthLayout>
