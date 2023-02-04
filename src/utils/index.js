@@ -1,2 +1,2 @@
-export * from "./ErrorsFirebase";
-export * from "./FormValidate";
+export * from "./ErrorsFirebase.js";
+export * from "./FormValidate.js";

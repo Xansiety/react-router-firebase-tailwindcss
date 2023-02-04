@@ -2,7 +2,7 @@ import { AuthLayout } from "../../layout/AuthLayout";
 import { useForm } from "react-hook-form";
 import { useUserContext } from "../../hooks/useUserContext";
 import { useNavigate } from "react-router";
-import { firebaseErrors, ErrorsFirebase, FormValidate } from "../../utils";
+import { firebaseErrors, errorsFirebase, FormValidate } from "../../utils";
 import { Button, FormAlert, FormInputText,Text3XLTitle, FormContainer } from "../../components";
 import { useState } from "react";
 
@@ -21,7 +21,7 @@ export const RegisterPage = () => {
       navigate("/");
     } catch (error) {
       if (firebaseErrors.includes(error.code)) {
-        const { message } = ErrorsFirebase(error.code);
+        const { message } = errorsFirebase(error.code);
         setApiErrorMessages(message);
       }
     }

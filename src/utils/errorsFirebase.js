@@ -7,7 +7,7 @@ export const firebaseErrors = [
   "auth/wrong-password",
 ];
 
-export const ErrorsFirebase = (errorCode) => {
+export const errorsFirebase = (errorCode) => {
   switch (errorCode) {
     case "auth/email-already-in-use":
       return { code: "firebase", message: "The access data does not match our records." };

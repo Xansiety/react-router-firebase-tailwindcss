@@ -3,7 +3,7 @@ import { useNavigate } from "react-router";
 import { Button, FormAlert, FormContainer, FormInputText, Text3XLTitle } from "../../components";
 import { useUserContext } from "../../hooks/useUserContext";
 import { AuthLayout } from "../../layout/AuthLayout";
-import { firebaseErrors, ErrorsFirebase, FormValidate } from "../../utils";
+import { firebaseErrors, errorsFirebase, FormValidate } from "../../utils";
 import { useState } from "react";
 import { GoogleIcon } from "../../components/icons/GoogleIcon";
 
@@ -21,7 +21,7 @@ export const LoginPage = () => {
       navigate("/");
     } catch (error) {
       if (firebaseErrors.includes(error.code)) {
-        const { message } = ErrorsFirebase(error.code);
+        const { message } = errorsFirebase(error.code);
         setApiErrorMessages(message);
       }
     }
