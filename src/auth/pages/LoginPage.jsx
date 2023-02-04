@@ -3,7 +3,7 @@ import { useNavigate } from "react-router";
 import { Button, FormAlert, FormContainer, FormInputText, Text3XLTitle } from "../../components";
 import { useUserContext } from "../../hooks/useUserContext";
 import { AuthLayout } from "../../layout/AuthLayout";
-import { firebaseErrors, errorsFirebase, FormValidate } from "../../utils";
+import { FormValidate, errorsMessages, errorsObject } from "../../utils";
 import { useState } from "react";
 import { GoogleIcon } from "../../components/icons/GoogleIcon";
 
@@ -20,8 +20,8 @@ export const LoginPage = () => {
       await loginWithEmailAndPassword({ email, password, displayName }); 
       navigate("/");
     } catch (error) {
-      if (firebaseErrors.includes(error.code)) {
-        const { message } = errorsFirebase(error.code);
+      if (errorsMessages.includes(error.code)) {
+        const { message } = errorsObject(error.code);
         setApiErrorMessages(message);
       }
     }

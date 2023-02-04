@@ -1,4 +1,4 @@
-export const firebaseErrors = [
+export const errorsMessages = [
   "auth/email-already-in-use",
   "auth/invalid-email",
   "auth/invalid-email-verified",
@@ -7,10 +7,13 @@ export const firebaseErrors = [
   "auth/wrong-password",
 ];
 
-export const errorsFirebase = (errorCode) => {
+export const errorsObject = (errorCode) => {
   switch (errorCode) {
     case "auth/email-already-in-use":
-      return { code: "firebase", message: "The access data does not match our records." };
+      return {
+        code: "firebase",
+        message: "The access data does not match our records.",
+      };
 
     case "auth/invalid-email":
       return { code: "firebase", message: "Invalid email format." };
@@ -25,10 +28,16 @@ export const errorsFirebase = (errorCode) => {
       };
 
     case "auth/user-not-found":
-      return { code: "firebase", message: "Incorrect Email/Password, try again." };
+      return {
+        code: "firebase",
+        message: "Incorrect Email/Password, try again.",
+      };
 
     case "auth/wrong-password":
-      return { code: "firebase", message: "Incorrect Email/Password, try again." };
+      return {
+        code: "firebase",
+        message: "Incorrect Email/Password, try again.",
+      };
 
     default:
       return { code: "firebase", message: "Server error, try again." };
