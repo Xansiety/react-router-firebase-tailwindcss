@@ -8,5 +8,8 @@ export const RequiereAuth = ({ children }) => {
     return <Navigate to="/auth/login" />;
   }
 
+  
+
+
   return children;
 };

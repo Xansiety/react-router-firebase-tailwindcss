@@ -24,11 +24,8 @@ const AppRouter = () => {
             <UrlRoutes />
           </RequiereAuth>
         }
-      />
-      <Route path="/:nanoid" element={<RedirectLayout />}>
-        <Route index element={<NotFoundPage />} />
-      </Route>
-      {/* <Route path="/*" element={<Navigate to="/auth/login" />} /> */}
+      /> 
+      <Route path="/:nanoid" element={<RedirectLayout />} />
     </Routes>
   );
 };

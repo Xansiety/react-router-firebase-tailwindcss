@@ -91,8 +91,7 @@ export const useDatabaseURLS = () => {
     try {
       const docRef = doc(FirebaseDB, "urls", nanoid);
       return await getDoc(docRef); 
-    } catch (error) {
-      // console.log(error)
+    } catch (error) { 
       setError(error.message);
     }
   };
