@@ -21,7 +21,7 @@ export const HomePage = () => {
 
 
   useEffect(() => {
-    console.log("useEffect loadUrls called");
+    //console.log("useEffect loadUrls called");
     loadUrls();
   }, []);
 
@@ -38,7 +38,7 @@ export const HomePage = () => {
       }
       resetField("url");
     } catch (error) {
-      console.log(error);
+      //console.log(error);
       if (errorsMessages.includes(error.code)) {
         const { message } = errorsObject(error.code);
         setApiErrorMessages(message);
@@ -49,14 +49,14 @@ export const HomePage = () => {
   };
 
   const handleDeleteDoc = async (nanoid) => {
-    console.log("handleDelete fn called");
-    console.log({ nanoid });
+    //console.log("handleDelete fn called");
+    //console.log({ nanoid });
     await deleteUrl(nanoid);
   };
 
   const handleEditDoc = async (newOrigin) => {
-    console.log("handleEdit fn called");
-    console.log({ newOrigin });
+    //console.log("handleEdit fn called");
+    //console.log({ newOrigin });
     //register a value to the input field
     setValue("url", newOrigin.origin);
     setNanoid(newOrigin.nanoid);
@@ -68,9 +68,9 @@ export const HomePage = () => {
       await navigator.clipboard.writeText(path + nanoid);
       setCopied(true);
       setLink(path + nanoid);
-      console.log('Copied!')
+      //console.log('Copied!')
     } catch (error) {
-      console.log(error);
+      //console.log(error);
     } 
   };
 

@@ -20,7 +20,7 @@ export const RedirectLayout = () => {
         }
       })
       .catch((error) => {
-        console.log(error);
+        // console.log(error);
       });
   }, []);
 

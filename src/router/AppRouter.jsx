@@ -3,6 +3,8 @@ import { AuthRoutes } from "../auth";
 import { RequiereAuth } from "../components/auth/RequiereAuth";
 import { useUserContext } from "../hooks/useUserContext";
 import { UrlRoutes } from "../urls";
+import { RedirectLayout } from "../layout/RedirectLayout";
+import { NotFoundPage } from "../urls/pages/NotFoundPage";
 
 const AppRouter = () => {
   const { user } = useUserContext();
@@ -22,8 +24,10 @@ const AppRouter = () => {
             <UrlRoutes />
           </RequiereAuth>
         }
-      />
-      <Route path="/*" element={<Navigate to="/auth/login" />} />
+      /> 
+      <Route path="/:nanoid" element={<RedirectLayout />}>
+        <Route index element={<NotFoundPage />} />
+      </Route>
     </Routes>
   );
 };

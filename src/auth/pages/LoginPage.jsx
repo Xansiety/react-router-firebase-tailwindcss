@@ -39,7 +39,7 @@ export const LoginPage = () => {
       await signInWithGoogle();
       return navigate("/");
     } catch (error) {
-      console.error(error);
+      // console.error(error);
     } finally {
       setIsLoading(false);
     }

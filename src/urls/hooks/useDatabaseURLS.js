@@ -21,7 +21,7 @@ export const useDatabaseURLS = () => {
       const dataDb = collectionSnap.docs.map((doc) => ({ ...doc.data() }));
       setData(dataDb);
     } catch (error) {
-      console.log(error);
+      // console.log(error);
       setError(error.message);
     } finally {
       setLoading((prev) => ({ ...prev, loadingUrls: false }));
@@ -45,7 +45,7 @@ export const useDatabaseURLS = () => {
       // Update the state with the new data
       setData([...data, newDoc]);
     } catch (error) {
-      console.log(error);
+      // console.log(error);
       setError(error.message);
     } finally {
       setLoading((prev) => ({ ...prev, creatingUrls: false }));
@@ -62,7 +62,7 @@ export const useDatabaseURLS = () => {
       const newCollection = data.filter((item) => item.nanoid !== nanoid);
       setData(newCollection);
     } catch (error) {
-      console.log(error);
+      // console.log(error);
       setError(error.message);
     } finally {
       setLoading((prev) => ({ ...prev, [nanoid]: false }));
@@ -79,7 +79,7 @@ export const useDatabaseURLS = () => {
       const newCollection = data.map((item) => item.nanoid === nanoid ? { ...item, origin: newOrigin } : item); 
       setData(newCollection);
     } catch (error) {
-      console.log(error);
+      // console.log(error);
       setError(error.message);
     } finally {
       setLoading((prev) => ({ ...prev, [nanoid]: false }));
@@ -92,7 +92,7 @@ export const useDatabaseURLS = () => {
       const docRef = doc(FirebaseDB, "urls", nanoid);
       return await getDoc(docRef); 
     } catch (error) {
-      console.log(error)
+      // console.log(error)
       setError(error.message);
     }
   };
