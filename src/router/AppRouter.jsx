@@ -1,10 +1,9 @@
-import { Navigate, Route, Routes } from "react-router";
+import { Route, Routes } from "react-router";
 import { AuthRoutes } from "../auth";
 import { RequiereAuth } from "../components/auth/RequiereAuth";
 import { useUserContext } from "../hooks/useUserContext";
 import { UrlRoutes } from "../urls";
-import { RedirectLayout } from "../layout/RedirectLayout";
-import { NotFoundPage } from "../urls/pages/NotFoundPage";
+import { RedirectLayout } from "../layout/RedirectLayout"; 
 
 const AppRouter = () => {
   const { user } = useUserContext();
