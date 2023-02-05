@@ -60,7 +60,7 @@ export const NavBar = () => {
                       Inicio
                     </NavLink>
                   </li>
-                  <li>
+                  {/* <li>
                     <NavLink
                       to="/perfil"
                       className={({ isActive }) =>
@@ -70,7 +70,7 @@ export const NavBar = () => {
                     >
                       Mi Perfil
                     </NavLink>
-                  </li>
+                  </li> */}
                   <li>
                     <button
                       onClick={handleLogOut}

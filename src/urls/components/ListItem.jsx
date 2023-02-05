@@ -9,7 +9,7 @@ export const ListItem = ({
   handleCopyToClipboard
 }) => {
   return (
-    <div className="flex items-start  flex-col md:flex-row">
+    <div className="flex items-start  flex-col md:flex-row sm:flex-row">
       <div className="flex-1 min-w-0">
         <p className="text-xl font-medium text-gray-900 truncate dark:text-white">
           {path + item.nanoid}
