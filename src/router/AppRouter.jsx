@@ -18,16 +18,17 @@ const AppRouter = () => {
     <Routes>
       <Route path="/auth/*" element={<AuthRoutes />} />
       <Route
-        path="/*"
+        path="/"
         element={
           <RequiereAuth>
             <UrlRoutes />
           </RequiereAuth>
         }
-      /> 
+      />
       <Route path="/:nanoid" element={<RedirectLayout />}>
         <Route index element={<NotFoundPage />} />
       </Route>
+      {/* <Route path="/*" element={<Navigate to="/auth/login" />} /> */}
     </Routes>
   );
 };
