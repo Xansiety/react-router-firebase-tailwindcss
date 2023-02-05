@@ -18,7 +18,7 @@ const AppRouter = () => {
     <Routes>
       <Route path="/auth/*" element={<AuthRoutes />} />
       <Route
-        path="/"
+        path="/*"
         element={
           <RequiereAuth>
             <UrlRoutes />
