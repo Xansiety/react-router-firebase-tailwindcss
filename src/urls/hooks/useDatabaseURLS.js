@@ -9,7 +9,7 @@ export const useDatabaseURLS = () => {
   const [loading, setLoading] = useState({});
 
   const loadUrls = async () => {
-    console.log("loadUrls fn called");
+    // console.log("loadUrls fn called");
     setLoading((prev) => ({ ...prev, loadingUrls: true }));
     try {
       const collectionRef = collection(FirebaseDB, "urls");
@@ -29,7 +29,7 @@ export const useDatabaseURLS = () => {
   };
 
   const createUrl = async (url) => {
-    console.log("createUrl fn called");
+    // console.log("createUrl fn called"); 
     setLoading((prev) => ({ ...prev, creatingUrls: true }));
     try {
       // Create a new document with setDocs in collection "urls", with id from nanoid
@@ -53,7 +53,7 @@ export const useDatabaseURLS = () => {
   };
 
   const deleteUrl = async (nanoid) => {
-    console.log("deleteUrl fn called");
+    // console.log("deleteUrl fn called");
     setLoading((prev) => ({ ...prev, [nanoid]: true }));
     try {
       const docRef = doc(FirebaseDB, "urls", nanoid);
@@ -70,18 +70,13 @@ export const useDatabaseURLS = () => {
   };
 
   const updateUrl = async (nanoid, newOrigin) => {
-    console.log("updateUrl fn called");
+    // console.log("updateUrl fn called");
     setLoading((prev) => ({ ...prev, [nanoid]: true }));
     try {
       const docRef = doc(FirebaseDB, "urls", nanoid);
       await updateDoc(docRef, { origin: newOrigin });
       // Update the state with the new data
-      const newCollection = data.map((item) => {
-        if (item.nanoid === nanoid) {
-          return { ...item, origin: newOrigin };
-        }
-        return item;
-      });
+      const newCollection = data.map((item) => item.nanoid === nanoid ? { ...item, origin: newOrigin } : item); 
       setData(newCollection);
     } catch (error) {
       console.log(error);

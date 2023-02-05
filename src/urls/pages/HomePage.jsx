@@ -1,20 +1,24 @@
 import { useEffect, useState } from "react";
-import { Text3XLTitle } from "../../components";
+import { FormAlert, FormInputText, Text3XLTitle } from "../../components";
 import { RootLayout } from "../../layout/RootLayout";
 import { useDatabaseURLS } from "../hooks/useDatabaseURLS";
-import {
-  AlertDanger,
-  IconSend,
-  IconTrash,
-  ButtonOutline,
-  IconPencil,
-} from "../../ui";
+import { AlertDanger, IconSend, ButtonOutline } from "../../ui";
+import { useForm } from "react-hook-form";
+import { ValidateInputOpt } from "../../utils/ValidateInputOpt";
+import { errorsMessages, errorsObject } from "../../utils/ErrorsMessages";
+import { ListContainer } from "../components/ListContainer"; 
+import { AlertSuccess } from "../../ui/Alerts/AlertSuccess";
 
 export const HomePage = () => {
-  const { data, error, loading, loadUrls, createUrl, deleteUrl, updateUrl } =
-    useDatabaseURLS();
+  const { data, error, loading, loadUrls, createUrl, deleteUrl, updateUrl } = useDatabaseURLS();
+  const { register, resetField, setValue, handleSubmit, formState: { errors } } = useForm();
+  const [apiErrorMessages, setApiErrorMessages] = useState(null);
+  const { required, patternUrl } = ValidateInputOpt();
   const [nanoid, setNanoid] = useState(undefined);
-  const [url, setUrl] = useState("");
+  const [copied, setCopied] = useState(false);
+  const [link, setLink] = useState(null);
+  const path = window.location.href;
+
 
   useEffect(() => {
     console.log("useEffect loadUrls called");
@@ -24,16 +28,23 @@ export const HomePage = () => {
   if (loading.loadingUrls) return <h1>Loading...</h1>;
   if (error) return <h1>{error}</h1>;
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    console.log({ url }); 
-    if (nanoid) {
-      await updateUrl(nanoid, url);
-      setNanoid("");
-      setUrl("");
-    } else {
-      await createUrl(url);
-      setUrl("");
+  const onSubmitUrl = async ({ url }) => {
+    try {
+      if (nanoid) {
+        await updateUrl(nanoid, url);
+        setNanoid(undefined);
+      } else {
+        await createUrl(url);
+      }
+      resetField("url");
+    } catch (error) {
+      console.log(error);
+      if (errorsMessages.includes(error.code)) {
+        const { message } = errorsObject(error.code);
+        setApiErrorMessages(message);
+      } else {
+        setApiErrorMessages(error.message);
+      }
     }
   };
 
@@ -43,66 +54,56 @@ export const HomePage = () => {
     await deleteUrl(nanoid);
   };
 
-  const handleEditDoc = async (newOrigin) => { 
+  const handleEditDoc = async (newOrigin) => {
     console.log("handleEdit fn called");
     console.log({ newOrigin });
-    setUrl(newOrigin.origin);
+    //register a value to the input field
+    setValue("url", newOrigin.origin);
     setNanoid(newOrigin.nanoid);
+  };
+
+  //Use clipboard API to copy the url to the clipboard
+  const handleCopyToClipboard = async (nanoid) => {
+    try {
+      await navigator.clipboard.writeText(path + nanoid);
+      setCopied(true);
+      setLink(path + nanoid);
+      console.log('Copied!')
+    } catch (error) {
+      console.log(error);
+    } 
   };
 
   return (
     <RootLayout>
       <Text3XLTitle text="Home" />
-
-      <form
-        onSubmit={handleSubmit}
-        className="flex justify-center align-center"
-      >
-        <input
-          type="text"
-          className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-          placeholder="Enter URL"
-          value={url}
-          onChange={(e) => setUrl(e.target.value)}
-        />
-
-        <ButtonOutline
-          type="submit"
-          color="blue"
-          loading={loading.creatingUrls || loading?.[nanoid]}
-        >
-          <IconSend />
-        </ButtonOutline>
-      </form>
-
-      {data.length <= 0 ? (
-        <AlertDanger />
-      ) : (
-        data.map((item) => (
-          <div key={item.nanoid} className="mt-8">
-            <h1>{item.nanoid}</h1>
-            <h2>{item.origin}</h2>
-            <h3>{item.uid}</h3>
-            <ButtonOutline
-              loading={loading[item.nanoid]}
-              type="button"
-              color="red"
-              onClick={() => handleDeleteDoc(item.nanoid)}
-            >
-              <IconTrash />
-            </ButtonOutline>
-
-            <ButtonOutline
-              loading={loading[item.nanoid]}
-              type="button"
-              color="green"
-              onClick={() => handleEditDoc(item)}
-            >
-              <IconPencil />
-            </ButtonOutline>
-            <hr />
-          </div>
-        ))
+      {apiErrorMessages && <FormAlert message={apiErrorMessages} />}
+      <form onSubmit={handleSubmit(onSubmitUrl)} className="flex justify-between  flex-col md:flex-row" >
+        <div className="w-full">
+          <FormInputText type="text" placeholder="example@xyz.com" error={errors.url}
+            {...register("url", { required, pattern: patternUrl })} >
+            {errors.url && <FormAlert message={errors.url.message} />}
+          </FormInputText>
+        </div>
+        <div>
+          <ButtonOutline type="submit" color="blue" loading={loading.creatingUrls || loading?.[nanoid]}>
+            <IconSend />
+          </ButtonOutline>
+        </div>
+      </form> 
+      {data.length <= 0 ? ( <AlertDanger /> ) : (
+        <>
+          { copied && <AlertSuccess link={link} />  }
+          <ListContainer
+            data={data}
+            path={path}
+            handleDeleteDoc={handleDeleteDoc}
+            handleEditDoc={handleEditDoc}
+            handleCopyToClipboard={handleCopyToClipboard}
+            loading={loading}
+          />
+        </>
+         
       )}
     </RootLayout>
   );

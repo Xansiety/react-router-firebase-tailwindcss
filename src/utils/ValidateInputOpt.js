@@ -9,6 +9,11 @@ export const ValidateInputOpt = (getValues, fieldKey) => {
         /[a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,15})/,
       message: "Invalid format email",
     },
+    patternUrl: {
+      value:
+        /((([A-Za-z]{3,9}:(?:\/\/)?)(?:[-;:&=\+\$,\w]+@)?[A-Za-z0-9.-]+|(?:www.|[-;:&=\+\$,\w]+@)[A-Za-z0-9.-]+)((?:\/[\+~%\/.\w-_]*)?\??(?:[-\+=&;%@.\w_]*)#?(?:[\w]*))?)/,
+      message: "Invalid format url",
+    },
     minLength: {
       value: 6,
       message: "Min length 6 characters",
